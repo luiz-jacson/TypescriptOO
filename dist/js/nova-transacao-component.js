@@ -1,8 +1,4 @@
-var saldo = 3000;
-var elementoSaldo = document.querySelector(".saldo-valor .valor");
-if (elementoSaldo != null)
-    elementoSaldo.textContent = "R$ " + saldo;
-var elementoFormulario = document.querySelector(".block-nova-transacao form");
+const elementoFormulario = document.querySelector(".block-nova-transacao form");
 if (elementoFormulario != null) {
     elementoFormulario.addEventListener("submit", function (event) {
         event.preventDefault();
@@ -10,17 +6,17 @@ if (elementoFormulario != null) {
             alert("Por favor, preencha todos os campos da transação");
             return;
         }
-        var inputTipoTransacao = elementoFormulario.querySelector("#tipoTransacao");
-        var inputValor = elementoFormulario.querySelector("#valor");
-        var inputData = elementoFormulario.querySelector("#data");
+        const inputTipoTransacao = elementoFormulario.querySelector("#tipoTransacao");
+        const inputValor = elementoFormulario.querySelector("#valor");
+        const inputData = elementoFormulario.querySelector("#data");
         if (inputTipoTransacao != null && inputValor != null && inputData != null) {
-            var tipoTransacao = inputTipoTransacao.value;
-            var valor = inputValor.valueAsNumber;
-            var data = new Date(inputData.value);
-            if (tipoTransacao == "Depósito") {
+            let tipoTransacao = inputTipoTransacao.value;
+            let valor = inputValor.valueAsNumber;
+            let data = new Date(inputData.value);
+            if (tipoTransacao == TipoTransacao.DEPOSITO) {
                 saldo += valor;
             }
-            else if (tipoTransacao == "Transferência" || tipoTransacao == "Pagamento de Boleto") {
+            else if (tipoTransacao == TipoTransacao.TRANSFERENCIA || tipoTransacao == TipoTransacao.BOLETO) {
                 if (saldo - valor >= 0) {
                     saldo -= valor;
                 }
@@ -33,13 +29,14 @@ if (elementoFormulario != null) {
                 return;
             }
             if (elementoSaldo != null) {
-                elementoSaldo.textContent = "R$ " + saldo;
+                elementoSaldo.textContent = saldo.toLocaleString("pt-br", { currency: "BRL", style: "currency" });
             }
-            var novaTransacao = {
+            const novaTransacao = {
                 tipoTransacao: tipoTransacao,
-                valor: valor,
-                data: data,
+                data: new Date(),
+                valor: valor
             };
+            console.log(novaTransacao);
             elementoFormulario.reset();
         }
     });

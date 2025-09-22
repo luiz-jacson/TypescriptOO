@@ -1,0 +1,14 @@
+{
+    "compilerOptions": {
+        "module": "commonjs",
+        "target": "es2022",
+        "outDir": "./dist/js/",
+        "noEmitOnError": true // toda vez q identificar um erro ele não gera o arquivo JS
+    },
+    "exclude": [
+        "node_modules"
+    ],
+    "include": [
+        "./src/**/*"
+    ]
+}

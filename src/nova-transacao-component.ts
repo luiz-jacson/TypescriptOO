@@ -1,9 +1,3 @@
-let saldo: number = 3000;
-
-const elementoSaldo = document.querySelector(".saldo-valor .valor")
-if (elementoSaldo != null)
-    elementoSaldo.textContent = "R$ " + saldo;
-
 const elementoFormulario = document.querySelector(".block-nova-transacao form") as HTMLFormElement
 if (elementoFormulario != null) {
     elementoFormulario.addEventListener("submit", function (event) {
@@ -18,14 +12,13 @@ if (elementoFormulario != null) {
         const inputValor = elementoFormulario.querySelector("#valor") as HTMLInputElement
         const inputData = elementoFormulario.querySelector("#data") as HTMLInputElement
         if (inputTipoTransacao != null && inputValor != null && inputData != null) {
-            let tipoTransacao: string = inputTipoTransacao.value
+            let tipoTransacao: TipoTransacao = inputTipoTransacao.value as TipoTransacao
             let valor: number = inputValor.valueAsNumber
             let data: Date = new Date(inputData.value)
 
-
-            if (tipoTransacao == "Depósito") {
+            if (tipoTransacao == TipoTransacao.DEPOSITO) {
                 saldo += valor;
-            } else if (tipoTransacao == "Transferência" || tipoTransacao == "Pagamento de Boleto") {
+            } else if (tipoTransacao == TipoTransacao.TRANSFERENCIA || tipoTransacao == TipoTransacao.BOLETO) {
                 if (saldo - valor >= 0) {
                     saldo -= valor;
                 } else {
@@ -35,14 +28,17 @@ if (elementoFormulario != null) {
                 alert("Transação Inválida")
                 return;
             }
-            if(elementoSaldo != null){
-                elementoSaldo.textContent = "R$ " + saldo;
+            if (elementoSaldo != null) {
+                elementoSaldo.textContent = saldo.toLocaleString("pt-br",{currency: "BRL", style: "currency"});
             }
-            const novaTransacao = {
+
+            const novaTransacao: Transacao = {
                 tipoTransacao: tipoTransacao,
-                valor: valor,
-                data: data,
+                data: new Date(),
+                valor: valor
             }
+
+            console.log(novaTransacao)
 
             elementoFormulario.reset()
         }
