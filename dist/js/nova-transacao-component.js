@@ -29,7 +29,7 @@ if (elementoFormulario != null) {
                 return;
             }
             if (elementoSaldo != null) {
-                elementoSaldo.textContent = saldo.toLocaleString("pt-br", { currency: "BRL", style: "currency" });
+                elementoSaldo.textContent = formatarMoeda(saldo);
             }
             const novaTransacao = {
                 tipoTransacao: tipoTransacao,
