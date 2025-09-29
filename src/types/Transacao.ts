@@ -1,5 +1,7 @@
+import { TipoTransacao } from "./TipoTransacao.js";
+
 //Tipos Personalizados (Type Alias)
-type Transacao = {
+export type Transacao = {
     tipoTransacao: TipoTransacao;
     data: Date;
     valor: number;

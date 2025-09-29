@@ -1,7 +1,8 @@
 {
     "compilerOptions": {
-        "module": "commonjs",
-        "target": "es2022",
+        "module": "es2015",
+        "target": "es2015",
+        "moduleResolution": "node",
         "outDir": "./dist/js/",
         "noEmitOnError": true // toda vez q identificar um erro ele não gera o arquivo JS
     },
